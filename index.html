@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Chatroulette</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        #video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        video {
+            background: #000;
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #status {
+            margin: 20px;
+            font-weight: bold;
+        }
+        #peer-id-container {
+            margin: 20px;
+        }
+        #next-btn {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mini Chatroulette</h1>
+    
+    <div id="peer-id-container" style="display: none;">
+        Votre ID: <span id="peer-id"></span>
+    </div>
+    
+    <div id="status">Chargement...</div>
+    
+    <div id="video-container">
+        <video id="local-video" autoplay muted></video>
+        <video id="remote-video" autoplay></video>
+    </div>
+    
+    <div>
+        <button id="start-btn">Commencer</button>
+        <button id="next-btn" disabled>Trouver quelqu'un d'autre</button>
+    </div>
+
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
