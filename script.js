@@ -75,7 +75,32 @@ async function init() {
         startBtn.disabled = false;
     }
 }
+// === Sélection de pays ===
+let selectedCountry = null;
+const countryPreferences = {};
 
+function setCountryPreference(countryCode) {
+    selectedCountry = countryCode;
+    countryPreferences[countryCode] = true;
+    updatePeerSearch();
+}
+
+function updatePeerSearch() {
+    if (selectedCountry) {
+        // Implémentez une logique pour ne trouver que les pairs du pays sélectionné
+        // Cela nécessitera une modification de votre fonction serverless
+        findPeerFromCountry(selectedCountry);
+    } else {
+        findRandomPeer();
+    }
+}
+
+// Exemple de fonction à adapter selon votre backend
+async function findPeerFromCountry(countryCode) {
+    const response = await fetch(`/.netlify/functions/peers?action=find&country=${countryCode}`);
+    const data = await response.json();
+    // ... traitement de la réponse
+}
 function findRandomPeer() {
     statusEl.textContent = "Recherche d'un partenaire aléatoire...";
     nextBtn.disabled = true;
