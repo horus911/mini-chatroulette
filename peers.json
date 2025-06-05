@@ -1,0 +1,9 @@
+{
+  "name": "peers-function",
+  "version": "1.0.0",
+  "description": "Serverless function for peer management",
+  "main": "peers.js",
+  "scripts": {},
+  "author": "",
+  "license": "MIT"
+}
