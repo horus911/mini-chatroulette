@@ -113,7 +113,40 @@ function findRandomPeer() {
     // - Un tableau partagé via un service comme PeerJS Server
     // Mais pour cette démo, nous allons juste attendre une connexion entrante
 }
+// === Contrôles média ===
+let isVideoOn = true;
+let isAudioOn = true;
 
+function toggleVideo() {
+    if (!localStream) return;
+    
+    isVideoOn = !isVideoOn;
+    localStream.getVideoTracks().forEach(track => {
+        track.enabled = isVideoOn;
+    });
+    document.getElementById('video-toggle').textContent = 
+        isVideoOn ? 'Désactiver Vidéo' : 'Activer Vidéo';
+}
+
+function toggleAudio() {
+    if (!localStream) return;
+    
+    isAudioOn = !isAudioOn;
+    localStream.getAudioTracks().forEach(track => {
+        track.enabled = isAudioOn;
+    });
+    document.getElementById('audio-toggle').textContent = 
+        isAudioOn ? 'Désactiver Audio' : 'Activer Audio';
+}
+
+function stopAllMedia() {
+    if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+    }
+    if (currentCall) {
+        currentCall.close();
+    }
+}
 function setupCall(call) {
     currentCall = call;
     statusEl.textContent = "Appel en cours...";
