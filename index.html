@@ -69,7 +69,19 @@
         <button id="start-btn">Commencer</button>
         <button id="next-btn" disabled>Trouver quelqu'un d'autre</button>
     </div>
-
+<div id="controls">
+    <button id="video-toggle" onclick="toggleVideo()">Désactiver Vidéo</button>
+    <button id="audio-toggle" onclick="toggleAudio()">Désactiver Audio</button>
+    <button id="stop-btn" onclick="stopAllMedia()">Tout Arrêter</button>
+    
+    <select id="country-select" onchange="setCountryPreference(this.value)">
+        <option value="">-- Choisissez un pays --</option>
+        <option value="FR">France</option>
+        <option value="US">États-Unis</option>
+        <option value="CA">Canada</option>
+        <!-- Ajoutez d'autres pays -->
+    </select>
+</div>
     <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
     <script src="script.js"></script>
 </body>
