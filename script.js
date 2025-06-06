@@ -75,32 +75,7 @@ async function init() {
         startBtn.disabled = false;
     }
 }
-// === Sélection de pays ===
-let selectedCountry = null;
-const countryPreferences = {};
 
-function setCountryPreference(countryCode) {
-    selectedCountry = countryCode;
-    countryPreferences[countryCode] = true;
-    updatePeerSearch();
-}
-
-function updatePeerSearch() {
-    if (selectedCountry) {
-        // Implémentez une logique pour ne trouver que les pairs du pays sélectionné
-        // Cela nécessitera une modification de votre fonction serverless
-        findPeerFromCountry(selectedCountry);
-    } else {
-        findRandomPeer();
-    }
-}
-
-// Exemple de fonction à adapter selon votre backend
-async function findPeerFromCountry(countryCode) {
-    const response = await fetch(`/.netlify/functions/peers?action=find&country=${countryCode}`);
-    const data = await response.json();
-    // ... traitement de la réponse
-}
 function findRandomPeer() {
     statusEl.textContent = "Recherche d'un partenaire aléatoire...";
     nextBtn.disabled = true;
@@ -113,40 +88,7 @@ function findRandomPeer() {
     // - Un tableau partagé via un service comme PeerJS Server
     // Mais pour cette démo, nous allons juste attendre une connexion entrante
 }
-// === Contrôles média ===
-let isVideoOn = true;
-let isAudioOn = true;
 
-function toggleVideo() {
-    if (!localStream) return;
-    
-    isVideoOn = !isVideoOn;
-    localStream.getVideoTracks().forEach(track => {
-        track.enabled = isVideoOn;
-    });
-    document.getElementById('video-toggle').textContent = 
-        isVideoOn ? 'Désactiver Vidéo' : 'Activer Vidéo';
-}
-
-function toggleAudio() {
-    if (!localStream) return;
-    
-    isAudioOn = !isAudioOn;
-    localStream.getAudioTracks().forEach(track => {
-        track.enabled = isAudioOn;
-    });
-    document.getElementById('audio-toggle').textContent = 
-        isAudioOn ? 'Désactiver Audio' : 'Activer Audio';
-}
-
-function stopAllMedia() {
-    if (localStream) {
-        localStream.getTracks().forEach(track => track.stop());
-    }
-    if (currentCall) {
-        currentCall.close();
-    }
-}
 function setupCall(call) {
     currentCall = call;
     statusEl.textContent = "Appel en cours...";
@@ -166,38 +108,4 @@ function setupCall(call) {
         console.error(err);
         statusEl.textContent = "Erreur d'appel: " + err.message;
     });
-}
-// === Contrôles média ===
-let isVideoOn = true;
-let isAudioOn = true;
-
-function toggleVideo() {
-    if (!localStream) return;
-    
-    isVideoOn = !isVideoOn;
-    localStream.getVideoTracks().forEach(track => {
-        track.enabled = isVideoOn;
-    });
-    document.getElementById('video-toggle').textContent = 
-        isVideoOn ? 'Désactiver Vidéo' : 'Activer Vidéo';
-}
-
-function toggleAudio() {
-    if (!localStream) return;
-    
-    isAudioOn = !isAudioOn;
-    localStream.getAudioTracks().forEach(track => {
-        track.enabled = isAudioOn;
-    });
-    document.getElementById('audio-toggle').textContent = 
-        isAudioOn ? 'Désactiver Audio' : 'Activer Audio';
-}
-
-function stopAllMedia() {
-    if (localStream) {
-        localStream.getTracks().forEach(track => track.stop());
-    }
-    if (currentCall) {
-        currentCall.close();
-    }
 }
